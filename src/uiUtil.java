@@ -19,7 +19,7 @@ public class uiUtil {
 		frame.setTitle(title);
 		frame.setLocation((int) location.getX(), (int) location.getY());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(size);
+		frame.setSize(size);
 	}
 
 	// ////for relative location
@@ -28,7 +28,8 @@ public class uiUtil {
 		frame.setTitle(title);
 		frame.setLocationRelativeTo(relativeFrame);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(size);
+		//frame.setPreferredSize(size);
+		frame.setSize(size);
 	}
 
 	public static void initToolbar(JToolBar toolbar, doublePoint size,
@@ -39,6 +40,7 @@ public class uiUtil {
 		toolbar.setBackground(backgroundColor);
 		toolbar.setBorder(new LineBorder(Color.WHITE));
 	}
+
 
 	public static void setMaterialButton(JButton button, Dimension size) {
 
