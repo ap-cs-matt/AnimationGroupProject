@@ -35,6 +35,7 @@ public class GameWindow extends JPanel implements MouseListener,
 			ball2.move();
 			this.repaint();
 			new Robot().delay(5);
+
 		}
 
 	}
