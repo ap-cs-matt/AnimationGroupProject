@@ -25,9 +25,10 @@ public class Ball {
 		}
 	}
 
-	void move() {
+	void move(int speed) {
 		if (x + xa < 0)
 			xa = 1;
+		
 		if (x + xa > game.getWidth() - 30)
 			xa = -1;
 		if (y + ya < 0)
@@ -35,8 +36,8 @@ public class Ball {
 		if (y + ya > game.getHeight() - 30)
 			ya = -1;
 
-		x = x + xa;
-		y = y + ya;
+		x = x + (speed * xa);
+		y = y + (speed * ya);
 		//move();
 	}
 
