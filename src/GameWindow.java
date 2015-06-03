@@ -7,14 +7,16 @@ import java.awt.event.*;
 public class GameWindow extends JPanel implements MouseListener,
 		MouseMotionListener {
 
-	static JFrame mainFrame;
-	protected static JToolBar topToolBar;
+	protected static JFrame mainFrame;
+	protected Color backgroundColor;
+	protected JToolBar topToolBar;
 	protected int x, y, width, height = 0;
-	//static JButton setBackgroundColorButton;
+	protected Image virtualMem;
+	protected Graphics gBuffer;
+
 
 	public GameWindow() {
 
-		this.setBackground(Color.BLACK);
 		initMainFrame();
 		initTopToolBar(); // manages appearance & buttons in the toolbar
 
@@ -23,9 +25,20 @@ public class GameWindow extends JPanel implements MouseListener,
 		initMouseListeners();
 
 		mainFrame.add(this);
-		mainFrame.setVisible(true);
+		mainFrame.setVisible(true);	
 
 	}
+	@Override
+	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(x, y, 30, 30);
+		
+	}
+
 
 	private void initTopToolBar() {
 		//toolbar
@@ -49,15 +62,7 @@ public class GameWindow extends JPanel implements MouseListener,
 	}
 	private void setBackgroundColor(Color color){
 		this.setBackground(color);
-	}
-
-	@Override
-	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-
-		g2d.fillRect(x, y, 30, 30);
+		backgroundColor = color;
 	}
 
 	private void initMouseListeners() {
@@ -80,9 +85,11 @@ public class GameWindow extends JPanel implements MouseListener,
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+	
 		this.x = MouseInfo.getPointerInfo().getLocation().x;
 		this.y = MouseInfo.getPointerInfo().getLocation().y - 80;
-		this.repaint();
+		
+		repaint();
 
 	}
 
