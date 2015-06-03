@@ -139,12 +139,12 @@ class rightPaddle extends Paddle {
 			if (e.getKeyChar() == 's' || e.getKeyCode() == KeyEvent.VK_DOWN) {
 
 				System.out.print("down");
-				location.setPoints(location.getX(), location.getY() + 15);
+				location.setPoints(location.getX(), location.getY() + 10);
 
 			}
 			if (e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) {
 				System.out.print("up");
-				location.setPoints(location.getX(), location.getY() - 15);
+				location.setPoints(location.getX(), location.getY() - 10);
 			}
 		}
 

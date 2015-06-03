@@ -36,27 +36,17 @@ public class GameWindow extends JPanel implements MouseListener,
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		//g2d.fillRect(x, y, 20, 20); // thing that follows mouse
 
 		// /drawing paddles
 		
 		leftPaddle.paint(g2d);
 		rightPaddle.paint(g2d);
 
-		/*
-		 * if (rightEdge.inside(ball.getLocation().getIntX(),
-		 * ball.getLocation().getIntY()) ||
-		 * rightEdge.inside(ball2.getLocation().getIntX(),
-		 * ball2.getLocation().getIntY())){ System.out.println("Game over");
-		 * g2d.drawString("Game over", 200, 400); this.setBackground(Color.RED);
-		 * }
-		 */
 		if (leftEdge.contains(ball.getLocation().getIntX(), ball.getLocation()
 				.getIntY())
 				|| leftEdge.contains(ball2.getLocation().getIntX(), ball2
@@ -81,8 +71,8 @@ public class GameWindow extends JPanel implements MouseListener,
 		}
 
 		// /drawing the moving balls
-		// g2d.setColor(new Color(48, 35, 222, alpha));
-		g2d.setColor(new Color(48, 35, 22));
+		g2d.setColor(new Color(48, 35, 222, alpha));
+		//g2d.setColor(new Color(48, 35, 22));
 		ball.paint(g2d);
 
 		g2d.setColor(new Color(122, 39, 169, alpha));

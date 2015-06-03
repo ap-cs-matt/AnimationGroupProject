@@ -36,6 +36,7 @@ public class Ball {
 		if (y + ya > game.getHeight() - 30)
 			ya = -1;
 
+		speed = 15;
 		x = x + (speed * xa);
 		y = y + (speed * ya);
 		//move();
