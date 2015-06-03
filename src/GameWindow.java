@@ -10,14 +10,16 @@ public class GameWindow extends JPanel implements MouseListener,
 	protected static JFrame mainFrame;
 	protected Color backgroundColor;
 	protected JToolBar topToolBar;
-	protected int x, y, width, height = 0;
+	protected int x, y, width, height, alpha = 0;
+	protected boolean alphaIncreasing = false;
 	protected Image virtualMem;
 	protected Graphics gBuffer;
 	protected Ball ball, ball2;
+	
 
-	public GameWindow() throws AWTException {
-		ball = new Ball(this);
-		ball2 = new Ball(this);
+	public GameWindow() throws AWTException, InterruptedException {
+		ball = new Ball(this, 1);
+		ball2 = new Ball(this, 2);
 
 		initMainFrame();
 		initTopToolBar(); // manages appearance & buttons in the toolbar
@@ -34,7 +36,8 @@ public class GameWindow extends JPanel implements MouseListener,
 			ball.move();
 			ball2.move();
 			this.repaint();
-			new Robot().delay(5);
+			new Robot().delay(10);
+			//Thread.sleep(5);
 
 		}
 
@@ -45,12 +48,32 @@ public class GameWindow extends JPanel implements MouseListener,
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-
-		g2d.setColor(Color.WHITE);
 		g2d.fillRect(x, y, 20, 20);
 		
+		if (alpha == 0 || alphaIncreasing){
+			alphaIncreasing = true;
+			alpha += 2;
+			if (alpha > 255){
+				alpha = 255;
+			
+			}
+		}
+		if (alpha == 255 || (!alphaIncreasing)){
+			alphaIncreasing = false;
+			alpha -= 2;
+			if (alpha < 0){
+				alpha = 0;
+			
+			}
+			
+		}
+		
+		
+		g2d.setColor(new Color(48,35,222,alpha));
 		ball.paint(g2d);
-		g2d.setColor(Color.BLUE);
+		
+		
+		g2d.setColor(new Color(122,39,169,alpha));
 		ball2.paint(g2d);
 
 	}

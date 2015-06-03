@@ -7,8 +7,22 @@ public class Ball {
 	int ya = 1;
 	private GameWindow game;
 
-	public Ball(GameWindow game) {
+	public Ball(GameWindow game, int ballNumber) {
 		this.game = game;
+
+		switch (ballNumber) {
+		case 1:
+			x = 0;
+			y = 0;
+			xa = 1;
+			ya = 1;
+			break;
+		case 2: 
+			x = 200;
+			y = 150;
+			xa = 1;
+			ya = 1;
+		}
 	}
 
 	void move() {
