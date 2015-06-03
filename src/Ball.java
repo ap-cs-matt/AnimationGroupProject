@@ -37,10 +37,30 @@ public class Ball {
 
 		x = x + xa;
 		y = y + ya;
+		//move();
 	}
 
 	public void paint(Graphics2D g) {
 		g.fillOval(x, y, 30, 30);
+	}
+	
+	public doublePoint getLocation(){
+		return new doublePoint(x,y);
+	}
+	public void changeDirection(){
+		
+		if (this.xa > 0){
+			this.xa = -1;
+		}
+		else{
+			this.xa = 1;
+		}
+		if (this.ya > 0){
+			this.ya = -1;
+		}
+		else {
+			this.ya = 1;
+		}
 	}
 
 }
