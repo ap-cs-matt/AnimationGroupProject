@@ -13,9 +13,11 @@ public class GameWindow extends JPanel implements MouseListener,
 	protected int x, y, width, height = 0;
 	protected Image virtualMem;
 	protected Graphics gBuffer;
+	protected Ball ball, ball2;
 
-
-	public GameWindow() {
+	public GameWindow() throws AWTException {
+		ball = new Ball(this);
+		ball2 = new Ball(this);
 
 		initMainFrame();
 		initTopToolBar(); // manages appearance & buttons in the toolbar
@@ -25,9 +27,18 @@ public class GameWindow extends JPanel implements MouseListener,
 		initMouseListeners();
 
 		mainFrame.add(this);
-		mainFrame.setVisible(true);	
+		mainFrame.setVisible(true);
+		
+		while (true){
+			
+			ball.move();
+			ball2.move();
+			this.repaint();
+			new Robot().delay(5);
+		}
 
 	}
+
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
@@ -35,24 +46,29 @@ public class GameWindow extends JPanel implements MouseListener,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g2d.setColor(Color.WHITE);
-		g2d.fillRect(x, y, 30, 30);
+		g2d.fillRect(x, y, 20, 20);
 		
+		ball.paint(g2d);
+		g2d.setColor(Color.BLUE);
+		ball2.paint(g2d);
+
 	}
 
-
 	private void initTopToolBar() {
-		//toolbar
+		// toolbar
 		topToolBar = new JToolBar();
-		uiUtil.initToolbar(topToolBar, new doublePoint(1920, 35), Color.WHITE); //color/design
-		
-		//button
-		JButton setBackgroundColorButton = new JButton("Set Background Color");
-		uiUtil.setMaterialButton(setBackgroundColorButton, new Dimension(200, 30));
+		uiUtil.initToolbar(topToolBar, new doublePoint(1920, 35), Color.WHITE); // color/design
 
-		setBackgroundColorButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Color color =  JColorChooser.showDialog(null, "Choose a Color", Color.WHITE);
-				
+		// button
+		JButton setBackgroundColorButton = new JButton("Set Background Color");
+		uiUtil.setMaterialButton(setBackgroundColorButton, new Dimension(200,
+				30));
+
+		setBackgroundColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Color color = JColorChooser.showDialog(null, "Choose a Color",
+						Color.WHITE);
+
 				setBackgroundColor(color);
 			}
 		});
@@ -60,7 +76,8 @@ public class GameWindow extends JPanel implements MouseListener,
 		topToolBar.add(setBackgroundColorButton);
 
 	}
-	private void setBackgroundColor(Color color){
+
+	private void setBackgroundColor(Color color) {
 		this.setBackground(color);
 		backgroundColor = color;
 	}
@@ -85,10 +102,9 @@ public class GameWindow extends JPanel implements MouseListener,
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-	
+
 		this.x = MouseInfo.getPointerInfo().getLocation().x;
 		this.y = MouseInfo.getPointerInfo().getLocation().y - 80;
-		
 		repaint();
 
 	}
