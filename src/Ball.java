@@ -58,10 +58,10 @@ public class Ball {
 			this.xa = 1;
 		}
 		if (this.ya > 0){
-			this.ya = -1;
+			this.ya = 1;
 		}
 		else {
-			this.ya = 1;
+			this.ya = -1;
 		}
 	}
 
