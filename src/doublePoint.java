@@ -1,3 +1,5 @@
+package src;
+
 public class doublePoint {
 
 	private Double x, y;
