@@ -106,3 +106,16 @@
 +com_crashlytics_export_strings.xml
 +crashlytics.properties
 +crashlytics-build.properties
+
+
+
+#bluej#
+#######
+
+#Doc Ordner
+**/doc
+*.class
+*.pkh
+*.ctxt
+*.bluej
+.DS_Store
