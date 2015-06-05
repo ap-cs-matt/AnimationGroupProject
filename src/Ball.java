@@ -1,28 +1,19 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Ball {
-	int x = 0;
-	int y = 0;
-	int xa = 1;
-	int ya = 1;
+	int x, y =  0;
+	int xa, ya = 1;
+	
+	//for managing color and fade in & out
+	Color color = Color.BLACK;
+	int alpha = 0;
+	boolean alphaIncreasing = false;
+	
 	private GameWindow game;
 
-	public Ball(GameWindow game, int ballNumber) {
+	public Ball(GameWindow game) {
 		this.game = game;
-
-		switch (ballNumber) {
-		case 1:
-			x = 0;
-			y = 0;
-			xa = 1;
-			ya = 1;
-			break;
-		case 2: 
-			x = 200;
-			y = 150;
-			xa = 1;
-			ya = 1;
-		}
 	}
 
 	void move(int speed) {
@@ -36,18 +27,40 @@ public class Ball {
 		if (y + ya > game.getHeight() - 30)
 			ya = -1;
 
-		speed = 15;
+		speed = 1;
 		x = x + (speed * xa);
 		y = y + (speed * ya);
-		//move();
 	}
 
 	public void paint(Graphics2D g) {
+		g.setColor(getColor());
 		g.fillOval(x, y, 30, 30);
 	}
 	
 	public doublePoint getLocation(){
 		return new doublePoint(x,y);
+	}
+	private Color getColor(){
+		
+		//handles fade in and out
+		if (alpha == 50 || alphaIncreasing) {
+			alphaIncreasing = true;
+			alpha += 2;
+			if (alpha > 255) {
+				alpha = 255;
+
+			}
+		}
+		if (alpha == 255 || (!alphaIncreasing)) {
+			alphaIncreasing = false;
+			alpha -= 2;
+			if (alpha < 50) {
+				alpha = 50;
+
+			}
+		}
+		
+		return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
 	}
 	public void changeDirection(){
 		
@@ -64,5 +77,4 @@ public class Ball {
 			this.ya = -1;
 		}
 	}
-
 }
