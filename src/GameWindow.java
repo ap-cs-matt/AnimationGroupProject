@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class GameWindow extends JPanel {
@@ -36,17 +37,18 @@ public class GameWindow extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
+		
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
 		
-		ball.paint(g2d);
+		//ball.paint(g2d);
 		// /drawing paddles
 		leftPaddle.paint(g2d);
-		rightPaddle.paint(g2d);
-
+		rightPaddle.paint(g2d);	
 		
+	
 	}
 
 	private void initEdgeDetectors() {

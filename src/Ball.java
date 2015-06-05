@@ -34,6 +34,7 @@ public class Ball {
 	}
 
 	public void paint(Graphics2D g) {
+		
 		g.setColor(getColor());
 		g.fillOval(x, y, 30, 30);
 	}
