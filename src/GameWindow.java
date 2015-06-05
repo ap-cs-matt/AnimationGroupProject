@@ -38,11 +38,13 @@ public class GameWindow extends JPanel {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
+		
+		ball.paint(g2d);
 		// /drawing paddles
 		leftPaddle.paint(g2d);
 		rightPaddle.paint(g2d);
 
-		ball.paint(g2d);
+		
 	}
 
 	private void initEdgeDetectors() {
@@ -62,7 +64,7 @@ public class GameWindow extends JPanel {
 
 		while (true) {
 			
-			ball.move(speed);
+			ball.move();
 
 			this.repaint();
 			Thread.sleep(10);

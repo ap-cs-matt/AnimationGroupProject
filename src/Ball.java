@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Ball {
-	int x, y =  0;
+	int x, y =  1;
 	int xa, ya = 1;
 	
 	//for managing color and fade in & out
@@ -16,10 +16,9 @@ public class Ball {
 		this.game = game;
 	}
 
-	void move(int speed) {
+	void move() {
 		if (x + xa < 0)
-			xa = 1;
-		
+			xa = 1;	
 		if (x + xa > game.getWidth() - 30)
 			xa = -1;
 		if (y + ya < 0)
@@ -27,9 +26,9 @@ public class Ball {
 		if (y + ya > game.getHeight() - 30)
 			ya = -1;
 
-		speed = 1;
-		x = x + (speed * xa);
-		y = y + (speed * ya);
+		
+		x = x + (xa);
+		y = y + (ya);
 	}
 
 	public void paint(Graphics2D g) {
