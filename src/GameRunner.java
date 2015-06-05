@@ -9,4 +9,5 @@ public class GameRunner {
 	public static void main (String[] args) throws AWTException, InterruptedException{
 		game = new GameWindow();
 	}
+	//ftygbhnjm
 }
