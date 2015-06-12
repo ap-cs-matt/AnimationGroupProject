@@ -1,13 +1,7 @@
-package src;
-
-import java.awt.AWTException;
-
+import java.awt.*;
 
 public class GameRunner {
-
-	static GameWindow game;
 	public static void main (String[] args) throws AWTException, InterruptedException{
-		game = new GameWindow();
+		GameWindow game = new GameWindow();
 	}
-	//ftygbhnjm
 }

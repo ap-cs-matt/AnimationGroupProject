@@ -1,5 +1,3 @@
-package src;
-
 public class doublePoint {
 
 	private Double x, y;
@@ -9,7 +7,6 @@ public class doublePoint {
 		this.y = y;
 	}
 
-	
 	public double getX() {
 		return x;
 	}

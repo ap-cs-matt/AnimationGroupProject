@@ -1,11 +1,7 @@
-package src;
-
 import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 public class uiUtil {
 	public static void initFrame(JFrame frame, String title,
@@ -30,7 +26,6 @@ public class uiUtil {
 		frame.setTitle(title);
 		frame.setLocationRelativeTo(relativeFrame);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setPreferredSize(size);
 		frame.setSize(size);
 	}
 

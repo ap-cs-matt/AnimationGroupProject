@@ -1,5 +1,3 @@
-package src;
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -12,67 +10,109 @@ public class GameWindow extends JPanel {
 	protected static JFrame mainFrame;
 	protected Color backgroundColor;
 	protected JToolBar topToolBar;
-	protected int x, y, width, height, alpha, speed = 0;
-	protected boolean alphaIncreasing = false;
-	protected Ball ball, ball2;
-	Paddle leftPaddle, rightPaddle;
+	boolean gameRunning = true;
+
+	protected int x, y, width, height, speed = 0;
+	protected Ball ball;
+	protected ArrayList<Paddle> paddles = new ArrayList<Paddle>();
+
+	Paddle Paddle1;
 	Rectangle leftEdge, rightEdge;
 
 	public GameWindow() throws AWTException, InterruptedException {
 
 		// /window
+
 		initMainFrame();
 		initTopToolBar(); // manages appearance & buttons in the toolbar
 		mainFrame.getContentPane().add(topToolBar, BorderLayout.NORTH); // adds_toolbar
+		initScore();
 		mainFrame.add(this);
 		mainFrame.setVisible(true);
 
+		initListeners();
+
 		// moving graphics
 		initPaddles();
-		initEdgeDetectors();
+		moveBall();
+	}
 
-		initListeners();
-		animateBalls();
+	public void gameOver() {
+		gameRunning = false;
+	}
+	public void gameRestart(){
+		gameRunning = true;
+		ball.setLocation(0,0);
+		initScore(); // resets to zero
+		
+		paddles.clear();
+		initPaddles();
+	}
+
+	double startTime;
+	int score;
+
+	private void initScore() {
+		startTime = System.currentTimeMillis();
+
+	}
+
+	private void updateScore() {
+		score = (int) (System.currentTimeMillis() - startTime) / 100;
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		
+
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
 		
-		//ball.paint(g2d);
-		// /drawing paddles
-		leftPaddle.paint(g2d);
-		rightPaddle.paint(g2d);	
-		
-	
-	}
 
-	private void initEdgeDetectors() {
-		leftEdge = new Rectangle(0, 0, 1, mainFrame.getHeight()); //barrier
-		rightEdge = new Rectangle(1400, 0, 1, mainFrame.getHeight());
-
+		if (gameRunning) {
+			for (Paddle paddle : paddles) {
+				paddle.paint(g2d);
+			}
+			ball.paint(g2d);
+			///
+			updateScore();
+			g2d.setFont(new Font("Comic Sans MS", Font.BOLD, 150));
+			g2d.drawString(Integer.toString(score), this.getWidth() - 350,
+					(int) this.getBounds().getMinY() + 100);
+			/////
+		} else{
+			g2d.setFont(new Font("Comic Sans MS", Font.BOLD, 150));
+			g.drawString("Game OVER", this.getWidth() / 2 - 400, this.getHeight() / 2);
+		}
 	}
 
 	private void initPaddles() {
-		leftPaddle = new Paddle(this, new doublePoint(20, 100), Color.BLUE);
-		rightPaddle = new Paddle(this, new doublePoint(20, 1050), Color.RED);
-		this.repaint();
+		// Paddle1 = new Paddle(new doublePoint(100, 250), Color.GREEN);
+		for (int i = 0; i < 100; i++) {
+			int randomX = (int) (Math.random() * this.getWidth());
+			int randomY = (int) (Math.random() * this.getHeight());
+
+			Paddle paddle = (new Paddle(new doublePoint(randomX, randomY),
+					new Color((int) (Math.random() * 0x1000000))));
+			paddles.add(paddle);
+			this.repaint();
+		}
+
 	}
 
-	private void animateBalls() throws InterruptedException {
+	private void moveBall() throws InterruptedException, AWTException {
 		ball = new Ball(this);
 
 		while (true) {
-			
+
 			ball.move();
+			for (Paddle paddle : paddles) {
+
+			}
 
 			this.repaint();
 			Thread.sleep(10);
-
 		}
 	}
 
@@ -96,7 +136,20 @@ public class GameWindow extends JPanel {
 		});
 		topToolBar.addSeparator(new Dimension(4, 0));
 		topToolBar.add(setBackgroundColorButton);
+		topToolBar.addSeparator(new Dimension(4, 0));
+		
+		// button
+				JButton restart = new JButton("Restart");
+				uiUtil.setMaterialButton(restart, new Dimension(200,
+						30));
 
+				restart.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						gameRestart();
+					}
+				});
+		
+				topToolBar.add(restart);
 	}
 
 	private void setBackgroundColor(Color color) {
@@ -112,17 +165,16 @@ public class GameWindow extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-
+				ball.keyReleased(e);
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
 
-				System.out.println("hfgghfghhfghgfhdaaa");
+				ball.keyPressed(e);
 			}
 		});
 		setFocusable(true);
-
 	}
 
 	private static void initMainFrame() {
