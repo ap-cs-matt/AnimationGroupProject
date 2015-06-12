@@ -37,10 +37,10 @@ public class Ball {
 		// ///
 
 		// bounce off the top wall
-		if ((y + verticalSpeed < 0) && verticalSpeed < 0) {
+		/*if ((y + verticalSpeed < 0) && verticalSpeed < 0) {
 			verticalSpeed *= -1;
 			verticalTimer = 0;
-		}
+		}*/
 		// if it hits bottom
 		if (y + verticalSpeed > game.getHeight() - 30) {
 			game.gameOver();
