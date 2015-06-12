@@ -82,8 +82,14 @@ public class GameWindow extends JPanel {
 					(int) this.getBounds().getMinY() + 100);
 			/////
 		} else{
+			
+			///prints game over
 			g2d.setFont(new Font("Comic Sans MS", Font.BOLD, 150));
 			g.drawString("Game OVER", this.getWidth() / 2 - 400, this.getHeight() / 2);
+			
+			//pauses score
+			g2d.drawString(Integer.toString(score), this.getWidth() - 350,
+					(int) this.getBounds().getMinY() + 100);
 		}
 	}
 
