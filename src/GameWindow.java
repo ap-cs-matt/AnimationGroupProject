@@ -11,6 +11,9 @@ public class GameWindow extends JPanel {
 	protected Color backgroundColor;
 	protected JToolBar topToolBar;
 	boolean gameRunning = true;
+	boolean gamePaused = false;
+	int score;
+
 
 	protected int x, y, width, height, speed = 0;
 	protected Ball ball;
@@ -26,7 +29,7 @@ public class GameWindow extends JPanel {
 		initMainFrame();
 		initTopToolBar(); // manages appearance & buttons in the toolbar
 		mainFrame.getContentPane().add(topToolBar, BorderLayout.NORTH); // adds_toolbar
-		initScore();
+		
 		mainFrame.add(this);
 		mainFrame.setVisible(true);
 
@@ -44,22 +47,10 @@ public class GameWindow extends JPanel {
 	public void gameRestart(){
 		gameRunning = true;
 		ball.setLocation(0,0);
-		initScore(); // resets to zero
+		updateScore(0); // resets to zero
 		
 		paddles.clear();
 		initPaddles();
-	}
-
-	double startTime;
-	int score;
-
-	private void initScore() {
-		startTime = System.currentTimeMillis();
-
-	}
-
-	private void updateScore() {
-		score = (int) (System.currentTimeMillis() - startTime) / 100;
 	}
 
 	@Override
@@ -69,7 +60,7 @@ public class GameWindow extends JPanel {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		if (gameRunning) {
+		if (gameRunning && !gamePaused) {
 			
 			for (Paddle paddle : paddles) {
 				paddle.paint(g2d);
@@ -82,12 +73,14 @@ public class GameWindow extends JPanel {
 			
 			ball.paint(g2d);
 			///
-			updateScore();
+			
 			g2d.setFont(new Font("Comic Sans MS", Font.BOLD, 150));
 			g2d.drawString(Integer.toString(score), this.getWidth() - 350,
 					(int) this.getBounds().getMinY() + 100);
 			/////
-		} else{
+		} 
+		
+		else{
 			
 			///prints game over
 			g2d.setFont(new Font("Comic Sans MS", Font.BOLD, 150));
@@ -96,6 +89,8 @@ public class GameWindow extends JPanel {
 			//pauses score
 			g2d.drawString(Integer.toString(score), this.getWidth() - 350,
 					(int) this.getBounds().getMinY() + 100);
+			
+			
 		}
 	}
 
@@ -160,6 +155,9 @@ public class GameWindow extends JPanel {
 		
 				topToolBar.add(restart);
 	}
+				
+			
+							
 
 	private void setBackgroundColor(Color color) {
 		this.setBackground(color);
@@ -190,6 +188,14 @@ public class GameWindow extends JPanel {
 		mainFrame = new JFrame();
 		uiUtil.initFrame(mainFrame, "Game", new doublePoint(0, 0),
 				new Dimension(1920, 1080));
+	}
+	
+	public void updateScore(int score){
+		this.score = score;
+		
+	}
+	public int getScore(){
+		return score;
 	}
 
 	public void update(Graphics g) {

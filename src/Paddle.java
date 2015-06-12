@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 
 public class Paddle {
 
@@ -16,7 +17,8 @@ public class Paddle {
 
 	public void paint(Graphics2D g) {
 		g.setColor(color);
-		g.fillRect(x, y, WIDTH, HEIGHT);
+		//g.fillRect(x, y, WIDTH, HEIGHT);
+		g.fill(new RoundRectangle2D.Float(x, y, WIDTH, HEIGHT, 20, 20));
 	}
 
 	public void moveDown(int shift){

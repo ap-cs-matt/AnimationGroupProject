@@ -59,6 +59,7 @@ public class Ball {
 
 		if (collision()) {
 			jump();
+			game.updateScore(1 + game.getScore());
 			verticalTimer = 0;
 		}
 		// gravity

@@ -50,5 +50,4 @@ public class uiUtil {
 		button.setBackground(Color.WHITE);
 		button.setBorder(compound);
 	}
-
 }
