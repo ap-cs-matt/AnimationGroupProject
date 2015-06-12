@@ -94,15 +94,14 @@ public class GameWindow extends JPanel {
 	}
 
 	private void initPaddles() {
-		// Paddle1 = new Paddle(new doublePoint(100, 250), Color.GREEN);
+
 		for (int i = 0; i < 100; i++) {
-			int randomX = (int) (Math.random() * this.getWidth());
+			int randomX = (int) (Math.random() * (this.getWidth() - 100));
 			int randomY = (int) (Math.random() * this.getHeight());
 
 			Paddle paddle = (new Paddle(new doublePoint(randomX, randomY),
 					new Color((int) (Math.random() * 0x1000000))));
 			paddles.add(paddle);
-			this.repaint();
 		}
 
 	}
