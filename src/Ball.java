@@ -10,7 +10,7 @@ public class Ball {
 										// for letting the ball slide faster the
 										// longer the button is held down
 	protected int verticalTimer = 0; // is gravity
-	protected int initHorizontalSpeed = 7;
+	protected int initHorizontalSpeed = 5;
 	protected int regenCount = 0;
 	
 	protected GameWindow game;
