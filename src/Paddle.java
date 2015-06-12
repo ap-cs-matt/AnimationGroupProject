@@ -19,7 +19,20 @@ public class Paddle {
 		g.fillRect(x, y, WIDTH, HEIGHT);
 	}
 
+	public void moveDown(int shift){
+		this.y += shift;
+	}
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
+	}
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+	}
+	public void setLocation(doublePoint location){
+		this.x = location.getIntX();
+		this.y = location.getIntY();
 	}
 }

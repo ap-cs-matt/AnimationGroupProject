@@ -34,6 +34,7 @@ public class GameWindow extends JPanel {
 
 		// moving graphics
 		initPaddles();
+		
 		moveBall();
 	}
 
@@ -68,12 +69,17 @@ public class GameWindow extends JPanel {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		
-
 		if (gameRunning) {
+			
 			for (Paddle paddle : paddles) {
 				paddle.paint(g2d);
-			}
+				paddle.moveDown(1);
+				
+				if (paddle.getY() + 10 > this.getHeight()){
+					paddle.setLocation(new doublePoint (Math.random() * this.getWidth(), Math.random() * this.getHeight()));
+				}	
+			}			
+			
 			ball.paint(g2d);
 			///
 			updateScore();
@@ -93,9 +99,10 @@ public class GameWindow extends JPanel {
 		}
 	}
 
+
 	private void initPaddles() {
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 50; i++) {
 			int randomX = (int) (Math.random() * (this.getWidth() - 100));
 			int randomY = (int) (Math.random() * this.getHeight());
 
@@ -103,7 +110,6 @@ public class GameWindow extends JPanel {
 					new Color((int) (Math.random() * 0x1000000))));
 			paddles.add(paddle);
 		}
-
 	}
 
 	private void moveBall() throws InterruptedException, AWTException {
@@ -112,9 +118,7 @@ public class GameWindow extends JPanel {
 		while (true) {
 
 			ball.move();
-			for (Paddle paddle : paddles) {
-
-			}
+			
 
 			this.repaint();
 			Thread.sleep(10);
